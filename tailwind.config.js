@@ -20,6 +20,10 @@ module.exports = {
       },
     },
     extend: {
+      colors: {
+        "dark-green": "#14390C",
+        "yellow-green": "#878D06",
+      },
       // colors: {
       //   border: "hsl(var(--border))",
       //   input: "hsl(var(--input))",
@@ -55,11 +59,7 @@ module.exports = {
       //     foreground: "hsl(var(--card-foreground))",
       //   },
       // },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
+
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
