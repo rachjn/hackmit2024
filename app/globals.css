@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+:root {
+  background-color: #f0f5f0;
+  color: #161a16;
+  scroll-behavior: smo;
+}
+
+/* @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -75,4 +81,4 @@
   body {
     @apply bg-background text-foreground min-h-full;
   }
-}
+} */

@@ -17,23 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Home() {
   return (
     <>
-      <StickyHeader className="px-4 py-2">
-        <div className="flex justify-between items-center">
-          Convex + Next.js + Clerk
-          <SignInAndSignUpButtons />
-        </div>
-      </StickyHeader>
-      <main className="container max-w-2xl flex flex-col gap-8">
-        <h1 className="text-4xl font-extrabold my-8 text-center">
-          Convex + Next.js + Clerk Auth
-        </h1>
-        <Authenticated>
-          <SignedInContent />
-        </Authenticated>
-        <Unauthenticated>
-          <p>Click one of the buttons in the top right corner to sign in.</p>
-        </Unauthenticated>
-      </main>
+      <div>home content</div>
     </>
   );
 }
