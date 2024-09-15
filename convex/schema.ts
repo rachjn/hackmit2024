@@ -17,6 +17,21 @@ export default defineSchema(
     numbers: defineTable({
       value: v.number(),
     }),
+    cameras: defineTable({
+      cam_id: v.float64(),
+      last_ping: v.float64(),
+      location: v.object({
+        latitude: v.float64(),
+        longitude: v.float64(),
+      }),
+    }),
+    data_streams: defineTable({
+      cam_id: v.float64(),
+      alert_type: v.string(),
+      animal: v.string(),
+      num_animal: v.float64(),
+      ping_time: v.float64()
+    }),
   },
   // If you ever get an error about schema mismatch
   // between your data and your schema, and you cannot
