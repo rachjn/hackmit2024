@@ -1,3 +1,5 @@
+import { notifyClients } from "../api/socket/route";
+
 export const CamsExample = [
   {
     cam_id: 0,
@@ -110,6 +112,7 @@ export async function getDataStreams(payload: object): Promise<any> {
     }
 
     const data = await response.json();
+    notifyClients();
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -141,4 +144,21 @@ export async function listCameras(payload: object): Promise<any> {
     console.error("Error fetching data:", error);
     throw error;
   }
+}
+
+export async function fetchAndTriggerUpdates(payload: object) {
+  const updatedData = await getDataStreams(payload);
+
+  // Trigger Pusher event after fetching new data
+  await fetch("/api/pusher/trigger", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message: "Data stream updated!",
+    }),
+  });
+
+  return updatedData;
 }

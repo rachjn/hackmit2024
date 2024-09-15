@@ -1,13 +1,26 @@
-const { withNextVideo } = require('next-video/process')
+// const { withNextVideo } = require('next-video/process')
 
-// next.config.js
+// // next.config.js
+// module.exports = {
+//   async rewrites() {
+//     return [
+//       {
+//         source: "/api/:path*",
+//         destination: "http://localhost:3000/:path*",
+//       },
+//     ];
+//   },
+// };
+
 module.exports = {
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://localhost:3000/:path*",
-      },
-    ];
+  experimental: {
+    appDir: true,
+  },
+  webpackDevMiddleware: (config) => {
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+    };
+    return config;
   },
 };

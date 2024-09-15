@@ -12,6 +12,7 @@ import { api } from "@/convex/_generated/api";
 import VideoPlayer from "@/components/layout/videoplayer";
 import Video from "next-video";
 import getStarted from "/videos/get-started.mp4";
+import StreamUpdater from "@/components/layout/streamupdater";
 // import 01 from "/videos/01.mp4";
 
 export default async function CameraPage({ params }: any) {
@@ -43,7 +44,7 @@ export default async function CameraPage({ params }: any) {
             <div className="mt-5 mb-4 font-bold text-2xl flex justify-between items-end">
               Camera {params.cameraId}
             </div>
-            <div className="aspect-w-16 aspect-h-9 bg-gray-500"></div>
+            <div className="aspect-w-16 aspect-h-9 bg-gray-500 relative -z-20"></div>
             {/* <VideoPlayer videoUrl={videoUrl} /> */}
             {/* <Video src={getStarted} /> */}
             {/* Aspect ratio 16:9 */}
@@ -58,11 +59,7 @@ export default async function CameraPage({ params }: any) {
             <div className="font-bold text-2xl text-center my-4">News</div>
 
             <div className="mx-4 flex flex-col gap-2">
-              {dataStream.map((alert: any) => (
-                <div key={alert._id}>
-                  <NewsBox alert={alert} />
-                </div>
-              ))}
+              <StreamUpdater />
             </div>
           </div>
         </div>
