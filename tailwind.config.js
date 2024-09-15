@@ -23,42 +23,9 @@ module.exports = {
       colors: {
         "dark-green": "#14390C",
         "yellow-green": "#878D06",
+        "light-beige": "#e3dbc5",
+        "lightest-green": "#f5f3f0",
       },
-      // colors: {
-      //   border: "hsl(var(--border))",
-      //   input: "hsl(var(--input))",
-      //   ring: "hsl(var(--ring))",
-      //   background: "hsl(var(--background))",
-      //   foreground: "hsl(var(--foreground))",
-      //   primary: {
-      //     DEFAULT: "hsl(var(--primary))",
-      //     foreground: "hsl(var(--primary-foreground))",
-      //   },
-      //   secondary: {
-      //     DEFAULT: "hsl(var(--secondary))",
-      //     foreground: "hsl(var(--secondary-foreground))",
-      //   },
-      //   destructive: {
-      //     DEFAULT: "hsl(var(--destructive))",
-      //     foreground: "hsl(var(--destructive-foreground))",
-      //   },
-      //   muted: {
-      //     DEFAULT: "hsl(var(--muted))",
-      //     foreground: "hsl(var(--muted-foreground))",
-      //   },
-      //   accent: {
-      //     DEFAULT: "hsl(var(--accent))",
-      //     foreground: "hsl(var(--accent-foreground))",
-      //   },
-      //   popover: {
-      //     DEFAULT: "hsl(var(--popover))",
-      //     foreground: "hsl(var(--popover-foreground))",
-      //   },
-      //   card: {
-      //     DEFAULT: "hsl(var(--card))",
-      //     foreground: "hsl(var(--card-foreground))",
-      //   },
-      // },
 
       keyframes: {
         "accordion-down": {
@@ -69,12 +36,25 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "flip-up": {
+          "0%": { transform: "rotateX(90deg)", opacity: 0 },
+          "100%": { transform: "rotateX(0)", opacity: 1 },
+        },
+        "flip-down": {
+          "0%": { transform: "rotateX(0)", opacity: 1 },
+          "100%": { transform: "rotateX(90deg)", opacity: 0 },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "flip-up": "flip-up 0.5s ease forwards",
+        "flip-down": "flip-down 0.5s ease forwards",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
 };

@@ -3,11 +3,13 @@ export const CamsExample = [
     cam_id: 0,
     location: { latitude: 42.360092, longitude: -71.094162 },
     last_ping: 1726336914887,
+    highlight: true,
   },
   {
     cam_id: 1,
     location: { latitude: -1.731188, longitude: 37.759447 },
     last_ping: 1726336914887,
+    highlight: false,
   },
 ];
 

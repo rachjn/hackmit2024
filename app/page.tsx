@@ -13,11 +13,28 @@ import { Link } from "@/components/typography/link";
 import { SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 import { StickyHeader } from "@/components/layout/sticky-header";
 import { Skeleton } from "@/components/ui/skeleton";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
+import MapComponent from "../components/layout/map";
+import RotatingText from "@/components/layout/fliptext";
+
+const DynamicMap = dynamic(() => import("../components/layout/map"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
     <>
-      <div>home content</div>
+      <div className="mt-10">
+        <div className="text-center mb-10 font-bold text-xl">
+          What are wildlife around the world up to?
+        </div>
+        <RotatingText />
+        <div className="relative -z-20">
+          <MapComponent />
+        </div>
+        <div className="h-40"></div>
+      </div>
     </>
   );
 }

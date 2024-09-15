@@ -8,6 +8,40 @@
   scroll-behavior: smo;
 }
 
+/* Custom popup styling */
+.custom-popup .leaflet-popup-content-wrapper {
+  background-color: #d8e293;
+  border-radius: 15px;
+  padding: 10px;
+  font-family: "area-normal", sans-serif;
+}
+
+.custom-popup .leaflet-popup-tip {
+  background-color: #d8e293;
+}
+
+.custom-popup .leaflet-popup-content {
+  font-size: 12px;
+  color: #161a16;
+}
+
+/* Red popup style */
+.red-popup .leaflet-popup-content-wrapper {
+  background-color: #ffe4e1;
+  border-radius: 15px;
+  padding: 10px;
+  font-family: "area-normal", sans-serif;
+}
+
+.red-popup .leaflet-popup-tip {
+  background-color: #ffe4e1; /* Match background with popup */
+}
+
+.red-popup .leaflet-popup-content {
+  color: #ba0c00; /* Red text */
+  font-size: 12px;
+}
+
 /* @layer base {
   :root {
     --background: 0 0% 100%;
