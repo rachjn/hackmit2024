@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { query, mutation, action, internalMutation } from "./_generated/server";
+import { query, mutation, action, internalMutation, internalQuery } from "./_generated/server";
 import { api } from "./_generated/api";
 
 // Write your Convex functions in any file inside this directory (`convex`).
@@ -58,7 +58,7 @@ export const upsertDataStream = internalMutation({
 });
 
 // Query to get data streams for a specific camera with various filters.
-export const getDataStreams = query({
+export const getDataStreams = internalQuery({
   // Validators for arguments.
   args: {
     cam_id: v.optional(v.float64()), // Optional camera ID.
@@ -171,7 +171,7 @@ export const upsertCamera = internalMutation({
   },
 });
 
-export const listCameras = query({
+export const listCameras = internalQuery({
   // Validators for arguments.
   args: {
     cam_id: v.optional(v.float64()), // Optional camera ID for exact match.
