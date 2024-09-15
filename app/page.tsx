@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -9,24 +9,24 @@ import {
   usePreloadedQuery,
   useQuery,
 } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { Code } from "@/components/typography/code";
-import { Link } from "@/components/typography/link";
-import { SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
-import { StickyHeader } from "@/components/layout/sticky-header";
-import { Skeleton } from "@/components/ui/skeleton";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
-import MapComponent from "../components/layout/map";
 import RotatingText from "@/components/layout/fliptext";
-import { CamsExample, DataStreamExample } from "./data/data";
-import { preloadQuery } from "convex/nextjs";
-import MapDataWrapper from "@/components/layout/mapdata";
+import {
+  CamsExample,
+  DataStreamExample,
+  getDataStreams,
+  listCameras,
+} from "./data/data";
 
-const cams = CamsExample; //TODO: getcams
-const data = DataStreamExample; //TODO: getdatastream
+const MapComponent = dynamic(() => import("../components/layout/map"), {
+  ssr: false, // This disables server-side rendering for this component
+});
+// const cams = CamsExample; //TODO: getcams
+// const data = DataStreamExample; //TODO: getdatastream
 
-export default function Home() {
+export default async function Home() {
+  const cams = await listCameras({});
+  const data = await getDataStreams({});
   return (
     <>
       <div className="mt-5">
@@ -34,7 +34,8 @@ export default function Home() {
           What are wildlife around the world up to?
         </div>
         <div className="relative">
-          <MapComponent cams={CamsExample} data={DataStreamExample} />
+          {/* <MapComponent cams={cams} data={data} /> */}
+          <MapComponent cams={cams} data={data} />
           <div className="mt-4 text-center">
             <RotatingText />
           </div>

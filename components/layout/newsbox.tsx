@@ -8,7 +8,7 @@ export default function NewsBox({ alert }: any) {
   return (
     <>
       {BadEvent ? (
-        <div className="border rounded p-4 bg-red-800 bg-opacity-20 border-red-800 text-red-800">
+        <div className="max-w-full border rounded p-4 bg-red-800 bg-opacity-20 border-red-800 text-red-800">
           <div>
             <div className="uppercase flex items-center gap-2 font-bold">
               <LuAlertTriangle />

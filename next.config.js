@@ -1,4 +1,13 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+const { withNextVideo } = require('next-video/process')
 
-module.exports = nextConfig
+// next.config.js
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://localhost:3000/:path*",
+      },
+    ];
+  },
+};

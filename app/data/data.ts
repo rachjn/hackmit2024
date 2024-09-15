@@ -92,3 +92,53 @@ export async function reverseGeocode(
     return "Address not available";
   }
 }
+
+export async function getDataStreams(payload: object): Promise<any> {
+  const apiUrl = "https://kindred-ocelot-952.convex.site/getDataStreams";
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
+
+export async function listCameras(payload: object): Promise<any> {
+  const apiUrl = "https://kindred-ocelot-952.convex.site/listCameras";
+
+  try {
+    console.log("Sending request to", apiUrl, "with payload:", payload);
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    console.log("Response status:", response.status);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
