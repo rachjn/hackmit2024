@@ -5,7 +5,7 @@ export default function RotatingText() {
   const sentences = [
     "Illegal wildlife trade generates 5-20 billion dollars annually.",
     "Pangolins are the most trafficked mammals in the world - one is captured every five minutes.",
-    "Over 1,000 rangers have been killed in the past 10 years.",
+    "Over 1,000 rangers have been killed by poachers in the past 10 years.",
     "Three rhinoceroses are killed by poachers on average every day.",
   ];
 

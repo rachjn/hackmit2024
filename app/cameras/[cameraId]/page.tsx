@@ -1,16 +1,29 @@
-import { CamsExample, reverseGeocode } from "@/app/data/data";
+import {
+  CamsExample,
+  DataStreamExample,
+  reverseGeocode,
+} from "@/app/data/data";
+import NewsBox from "@/components/layout/newsbox";
 import { format } from "date-fns";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "@/convex/_generated/api";
 
 export default async function CameraPage({ params }: any) {
   //   const specificCam = await getOneCam(Number(params.cameraId));
   const camID = Number(params.cameraId);
-  const camera = CamsExample.find((camera) => camera.cam_id === camID);
+  const cams = await fetchQuery(api.myFunctions.listCameras, {});
+  const camera = cams.find((camera) => camera.cam_id === camID);
   const lat = camera?.location.latitude;
   const long = camera?.location.longitude;
   const location = await reverseGeocode(lat ?? 0, long ?? 0);
   const lpDate = camera?.last_ping;
   const lastPingDate = new Date(lpDate ?? 0);
   const formattedDate = format(lastPingDate, "MMM d, yyyy, h:mm a");
+  const dataStream = DataStreamExample;
+  const filteredStreams = dataStream.filter(
+    (stream) => stream.cam_id === camID
+  );
+
   return (
     <>
       <div className="mx-4 md:mx-32 mt-4">
@@ -26,8 +39,16 @@ export default async function CameraPage({ params }: any) {
             <div className="text-3xl mt-4 max-w-[45rem]">{location}</div>
           </div>
 
-          <div className="bg-gray-300 flex-grow min-w-[20rem] font-bold text-2xl text-center">
-            News
+          <div className="flex-grow min-w-[20rem] ">
+            <div className="font-bold text-2xl text-center my-4">News</div>
+
+            <div className="mx-4 flex flex-col gap-2">
+              {filteredStreams.map((alert) => (
+                <div key={alert._id}>
+                  <NewsBox alert={alert} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

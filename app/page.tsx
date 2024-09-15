@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button";
 import {
   Authenticated,
+  Preloaded,
   Unauthenticated,
   useMutation,
+  usePreloadedQuery,
   useQuery,
 } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -17,10 +19,12 @@ import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import MapComponent from "../components/layout/map";
 import RotatingText from "@/components/layout/fliptext";
+import { CamsExample, DataStreamExample } from "./data/data";
+import { preloadQuery } from "convex/nextjs";
+import MapDataWrapper from "@/components/layout/mapdata";
 
-const DynamicMap = dynamic(() => import("../components/layout/map"), {
-  ssr: false,
-});
+const cams = CamsExample; //TODO: getcams
+const data = DataStreamExample; //TODO: getdatastream
 
 export default function Home() {
   return (
@@ -30,7 +34,7 @@ export default function Home() {
           What are wildlife around the world up to?
         </div>
         <div className="relative">
-          <MapComponent />
+          <MapComponent cams={CamsExample} data={DataStreamExample} />
           <div className="mt-4 text-center">
             <RotatingText />
           </div>

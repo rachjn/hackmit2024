@@ -61,7 +61,7 @@ export const upsertDataStream = internalMutation({
 export const getDataStreams = query({
   // Validators for arguments.
   args: {
-    cam_id: v.float64(), // Optional camera ID.
+    cam_id: v.optional(v.float64()), // Optional camera ID.
     minPingTime: v.optional(v.float64()), // Optional minimum ping time.
     maxPingTime: v.optional(v.float64()), // Optional maximum ping time.
     alert_type: v.optional(v.string()), // Optional alert type.

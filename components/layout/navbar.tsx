@@ -11,13 +11,16 @@ export default function Navbar() {
             {/* NatureScope */}
             <Image
               src="/nslogo.png"
-              height={200}
-              width={200}
+              height={220}
+              width={220}
               alt="logo"
               className=""
             />
           </Link>
-          <Link href="/cameras" className="no-underline text-dark-green">
+          <Link
+            href="/cameras"
+            className="text-xl no-underline text-dark-green"
+          >
             All Cameras
           </Link>
           {/* <SignInAndSignUpButtons /> */}

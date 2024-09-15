@@ -13,6 +13,33 @@ export const CamsExample = [
   },
 ];
 
+export const DataStreamExample = [
+  {
+    _id: "jn744dd2e2mjkf70b9pjr1xd1h70ssyc",
+    cam_id: 0,
+    alert_type: "suspicious vehicle",
+    animal: "squink",
+    num_animal: 4,
+    ping_time: 4042326000,
+  },
+  {
+    _id: "jn744dd2e2mjkf70b9pjr1xd1h70ssyd",
+    cam_id: 0,
+    alert_type: "poach",
+    animal: "choncc",
+    num_animal: 3,
+    ping_time: 494232936040,
+  },
+  {
+    _id: "jn744dd2e2mjkf70b9pjr1xd1h70ssye",
+    cam_id: 1,
+    alert_type: "",
+    animal: "pengu",
+    num_animal: 3,
+    ping_time: 404330,
+  },
+];
+
 export const dynamic = "force-dynamic"; // Ensure server-side rendering for dynamic content
 
 const extractCityStateCountry = (addressComponents: any) => {
@@ -35,19 +62,33 @@ const extractCityStateCountry = (addressComponents: any) => {
 };
 
 // Server Action for reverse geocoding
-export async function reverseGeocode(lat: number, lng: number) {
+export async function reverseGeocode(
+  lat: number,
+  lng: number
+): Promise<string> {
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
 
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
   const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch from Google Maps API: ${res.statusText}`);
+  }
+
   const data = await res.json();
 
   if (data.status === "OK" && data.results.length > 0) {
     const addressComponents = data.results[0].address_components;
     const formattedAddress = extractCityStateCountry(addressComponents);
 
-    return formattedAddress; // Return the single string with city, state, and country
+    if (formattedAddress) {
+      return formattedAddress;
+    } else {
+      console.warn("Formatted address is undefined or empty");
+      return "Address not available";
+    }
   } else {
-    throw new Error("Address not found or failed to fetch");
+    console.warn("Address not found or failed to fetch");
+    return "Address not available";
   }
 }

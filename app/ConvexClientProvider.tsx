@@ -7,9 +7,7 @@ import { ClerkProvider, useAuth } from "@clerk/clerk-react";
 import { ErrorBoundary } from "./ErrorBoundary";
 
 // const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
-const convex = new ConvexReactClient(
-  "https://colorless-gull-139.convex.cloud/"
-);
+const convex = new ConvexReactClient("https://kindred-ocelot-952.convex.cloud");
 
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
   return (

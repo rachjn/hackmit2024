@@ -1,28 +1,35 @@
 "use client";
+
+import { Preloaded, usePreloadedQuery } from "convex/react";
+
 import { CamsExample, reverseGeocode } from "@/app/data/data";
 import { useEffect, useState } from "react";
 import CameraTab from "./camtab";
 import Link from "next/link";
 import { format } from "date-fns";
 import { listCameras } from "@/convex/myFunctions";
-import { preloadQuery } from "convex/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { fetchQuery } from "convex/nextjs";
+import { preloadQuery } from "convex/nextjs";
 
-export default function CameraTabs() {
+export default async function CameraTabs(props: {
+  preloadedCams: Preloaded<typeof api.myFunctions.listCameras>;
+}) {
   //   const cameraData = CamsExample; // TODO: turn into get function
   //   const args = {};
   const args = {};
+  const cameraData = usePreloadedQuery(props.preloadedCams);
 
-  const cameraData = useQuery(api.myFunctions.listCameras, {});
-  console.log(cameraData);
+  //   const cameraData = useQuery(api.myFunctions.listCameras, {});
   //   const dataStreams = useQuery(api.myFunctions.getDataStreams, args);
 
+  //   console.log(cameraData);
   return (
     <>
-      {JSON.stringify(cameraData)}
+      {/* {JSON.stringify(cameraData)} */}
       {/* {JSON.stringify(dataStreams)} */}
-      {cameraData?.map((camera) => {
+      {cameraData.map((camera) => {
         const lat = camera.location.latitude;
         const long = camera.location.longitude;
         const lastPingDate = new Date(camera.last_ping);
