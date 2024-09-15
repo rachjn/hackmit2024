@@ -1,0 +1,2 @@
+{"cam_id": 0, "data": [{"ping_time": 1726336914887, "animals":{"cheetah": 2, "hippo": 1}, "poach_alert":false, "alert_type":""}, {"ping_time": 1726336919999, "animals":{"cheetah": 2, "human": 1}, "poach_alert":true, "alert_type":"human"}]}
+{"cam_id": 1, "data": []}
