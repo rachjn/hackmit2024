@@ -25,15 +25,16 @@ const DynamicMap = dynamic(() => import("../components/layout/map"), {
 export default function Home() {
   return (
     <>
-      <div className="mt-10">
-        <div className="text-center mb-10 font-bold text-xl">
+      <div className="mt-5">
+        <div className="text-center mb-10 font-bold text-2xl">
           What are wildlife around the world up to?
         </div>
-        <RotatingText />
-        <div className="relative -z-20">
+        <div className="relative">
           <MapComponent />
+          <div className="mt-4 text-center">
+            <RotatingText />
+          </div>
         </div>
-        <div className="h-40"></div>
       </div>
     </>
   );

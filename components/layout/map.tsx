@@ -11,7 +11,7 @@ const MapComponent: React.FC = () => {
     <MapContainer
       center={[42.360092, -71.094162]}
       zoom={4}
-      style={{ height: "80vh" }}
+      style={{ height: "70vh" }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

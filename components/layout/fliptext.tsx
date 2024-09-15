@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 
 export default function RotatingText() {
   const sentences = [
-    "The quick brown fox jumps over the lazy dog.",
-    "A journey of a thousand miles begins with a single step.",
-    "Actions speak louder than words.",
+    "Illegal wildlife trade generates 5-20 billion dollars annually.",
+    "Pangolins are the most trafficked mammals in the world - one is captured every five minutes.",
+    "Over 1,000 rangers have been killed in the past 10 years.",
+    "Three rhinoceroses are killed by poachers on average every day.",
   ];
 
   const [currentSentence, setCurrentSentence] = useState(0);
@@ -22,7 +23,7 @@ export default function RotatingText() {
         setCurrentSentence((prev) => (prev + 1) % sentences.length);
         setIsFlipping(false);
       }, 500); // The duration of the flip-out animation
-    }, 3000); // Time between sentence changes
+    }, 5000); // Time between sentence changes
 
     return () => clearInterval(interval);
   }, [sentences.length]);
@@ -35,7 +36,7 @@ export default function RotatingText() {
           isFlipping ? "animate-flip-down" : "animate-flip-up"
         }`}
       >
-        <p className="text-2xl font-bold">{sentences[currentSentence]}</p>
+        <p className="text-xl font-bold">{sentences[currentSentence]}</p>
       </div>
     </div>
   );
