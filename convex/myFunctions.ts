@@ -24,9 +24,12 @@ export const upsertDataStream = internalMutation({
       .query("data_streams")
       .filter((q) => {
         // console.log(q.eq(q.field("ping_time"), ping_time).toString());
-        return q.and(q.eq(q.field("cam_id"), cam_id),
-        q.eq(q.field("ping_time"), ping_time),
-        q.eq(q.field("animal"), animal)); })
+        return q.and(
+          q.eq(q.field("cam_id"), cam_id),
+          q.eq(q.field("ping_time"), ping_time),
+          q.eq(q.field("animal"), animal)
+        );
+      })
       .first(); // Get the first matching stream where both cam_id and ping_time match.
 
     console.log(existingStream?.ping_time);
@@ -77,12 +80,16 @@ export const getDataStreams = query({
 
     // Filter by minimum ping time if provided.
     if (args.minPingTime !== undefined) {
-      query = query.filter((q) => q.gt(q.field("ping_time"), args.minPingTime as number));
+      query = query.filter((q) =>
+        q.gt(q.field("ping_time"), args.minPingTime as number)
+      );
     }
 
     // Filter by maximum ping time if provided.
     if (args.maxPingTime !== undefined) {
-      query = query.filter((q) => q.lt(q.field("ping_time"), args.maxPingTime as number));
+      query = query.filter((q) =>
+        q.lt(q.field("ping_time"), args.maxPingTime as number)
+      );
     }
 
     // Filter by alert type if provided.
@@ -94,14 +101,16 @@ export const getDataStreams = query({
     if (args.num_animals !== undefined) {
       query = query.filter((q) => {
         const animalCount = q.field("num_animal");
-        return q.gte(animalCount, (args.num_animals as number));
+        return q.gte(animalCount, args.num_animals as number);
       });
     }
 
     // Filter by specific animals being present (non-zero) if provided.
     if (args.present_animals !== undefined && args.present_animals.length > 0) {
       query = query.filter((q) =>
-        (args.present_animals as string[]).includes(q.field("animal").toString())
+        (args.present_animals as string[]).includes(
+          q.field("animal").toString()
+        )
       );
     }
 
@@ -165,9 +174,9 @@ export const upsertCamera = internalMutation({
 export const listCameras = query({
   // Validators for arguments.
   args: {
-    cam_id: v.optional(v.float64()),      // Optional camera ID for exact match.
-    minPingAge: v.optional(v.float64()),  // Optional minimum ping age (in seconds).
-    maxPingAge: v.optional(v.float64()),  // Optional maximum ping age (in seconds).
+    cam_id: v.optional(v.float64()), // Optional camera ID for exact match.
+    minPingAge: v.optional(v.float64()), // Optional minimum ping age (in seconds).
+    maxPingAge: v.optional(v.float64()), // Optional maximum ping age (in seconds).
   },
 
   // Query implementation.
@@ -205,27 +214,27 @@ export const listCameras = query({
 });
 
 // You can read data from the database via a query:
-export const listNumbers = query({
-  // Validators for arguments.
-  args: {
-    count: v.number(),
-  },
+// export const listNumbers = query({
+//   // Validators for arguments.
+//   args: {
+//     count: v.number(),
+//   },
 
-  // Query implementation.
-  handler: async (ctx, args) => {
-    //// Read the database as many times as you need here.
-    //// See https://docs.convex.dev/database/reading-data.
-    const numbers = await ctx.db
-      .query("numbers")
-      // Ordered by _creationTime, return most recent
-      .order("desc")
-      .take(args.count);
-    return {
-      viewer: (await ctx.auth.getUserIdentity())?.name ?? null,
-      numbers: numbers.toReversed().map((number) => number.value),
-    };
-  },
-});
+//   // Query implementation.
+//   handler: async (ctx, args) => {
+//     //// Read the database as many times as you need here.
+//     //// See https://docs.convex.dev/database/reading-data.
+//     const numbers = await ctx.db
+//       .query("numbers")
+//       // Ordered by _creationTime, return most recent
+//       .order("desc")
+//       .take(args.count);
+//     return {
+//       viewer: (await ctx.auth.getUserIdentity())?.name ?? null,
+//       numbers: numbers.toReversed().map((number) => number.value),
+//     };
+//   },
+// });
 
 // You can write data to the database via a mutation:
 export const addNumber = mutation({
@@ -249,29 +258,29 @@ export const addNumber = mutation({
 });
 
 // You can fetch data from and send data to third-party APIs via an action:
-export const myAction = action({
-  // Validators for arguments.
-  args: {
-    first: v.number(),
-    second: v.string(),
-  },
+// export const myAction = action({
+//   // Validators for arguments.
+//   args: {
+//     first: v.number(),
+//     second: v.string(),
+//   },
 
-  // Action implementation.
-  handler: async (ctx, args) => {
-    //// Use the browser-like `fetch` API to send HTTP requests.
-    //// See https://docs.convex.dev/functions/actions#calling-third-party-apis-and-using-npm-packages.
-    // const response = await ctx.fetch("https://api.thirdpartyservice.com");
-    // const data = await response.json();
+//   // Action implementation.
+//   handler: async (ctx, args) => {
+//     //// Use the browser-like `fetch` API to send HTTP requests.
+//     //// See https://docs.convex.dev/functions/actions#calling-third-party-apis-and-using-npm-packages.
+//     // const response = await ctx.fetch("https://api.thirdpartyservice.com");
+//     // const data = await response.json();
 
-    //// Query data by running Convex queries.
-    const data = await ctx.runQuery(api.myFunctions.listNumbers, {
-      count: 10,
-    });
-    console.log(data);
+//     //// Query data by running Convex queries.
+//     const data = await ctx.runQuery(api.myFunctions.listNumbers, {
+//       count: 10,
+//     });
+//     console.log(data);
 
-    //// Write data by running Convex mutations.
-    await ctx.runMutation(api.myFunctions.addNumber, {
-      value: args.first,
-    });
-  },
-});
+//     //// Write data by running Convex mutations.
+//     await ctx.runMutation(api.myFunctions.addNumber, {
+//       value: args.first,
+//     });
+//   },
+// });

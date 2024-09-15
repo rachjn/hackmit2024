@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { CamsExample } from "@/app/data/data";
 import Image from "next/image";
+import Link from "next/link";
 
 const MapComponent: React.FC = () => {
   return (
@@ -40,10 +41,23 @@ const MapComponent: React.FC = () => {
               /> */}
 
               <Popup className="red-popup">
-                <span className="font-bold">Camera ID:</span> {cam.cam_id}
-                <br />
-                <span className="font-bold">Last Updated:</span>{" "}
-                {new Date(cam.last_ping).toLocaleString()}
+                <div className="flex flex-col gap-1">
+                  <div className="underline font-bold">
+                    ABNORMAL ACTIVITY DETECTED
+                  </div>
+                  <div>
+                    <span className="font-bold">Camera ID:</span> {cam.cam_id}
+                  </div>
+                  <div>
+                    <span className="font-bold">Last Updated:</span>{" "}
+                    {new Date(cam.last_ping).toLocaleString()}
+                  </div>
+                  <div className="font-bold">
+                    <Link href={`/cameras/${cam.cam_id}`} className="underline">
+                      View feed
+                    </Link>
+                  </div>
+                </div>
               </Popup>
             </Marker>
           ) : (
@@ -56,10 +70,20 @@ const MapComponent: React.FC = () => {
               })}
             >
               <Popup className="custom-popup">
-                <span className="font-bold">Camera ID:</span> {cam.cam_id}
-                <br></br>
-                <span className="font-bold">Last Updated:</span>{" "}
-                {new Date(cam.last_ping).toLocaleString()}
+                <div className="flex flex-col gap-1">
+                  <div>
+                    <span className="font-bold">Camera ID:</span> {cam.cam_id}
+                  </div>
+                  <div>
+                    <span className="font-bold">Last Updated:</span>{" "}
+                    {new Date(cam.last_ping).toLocaleString()}
+                  </div>
+                  <div>
+                    <Link href={`/cameras/${cam.cam_id}`} className="underline">
+                      View feed
+                    </Link>
+                  </div>
+                </div>
               </Popup>
             </Marker>
           )}
